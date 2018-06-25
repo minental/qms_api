@@ -1,0 +1,1 @@
+class AttachmentUploader < BaseUploader; end
