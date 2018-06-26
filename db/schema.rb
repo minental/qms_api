@@ -10,10 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180617233602) do
+ActiveRecord::Schema.define(version: 20180626000529) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "customers", force: :cascade do |t|
+    t.string "phone_number"
+    t.string "first_name"
+    t.string "last_name"
+    t.datetime "booking_time"
+    t.json "attachments"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "servings", force: :cascade do |t|
+    t.bigint "operator_id"
+    t.bigint "customer_id"
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_servings_on_customer_id"
+    t.index ["operator_id"], name: "index_servings_on_operator_id"
+  end
 
   create_table "sessions", force: :cascade do |t|
     t.string "access_token"
@@ -33,5 +53,7 @@ ActiveRecord::Schema.define(version: 20180617233602) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "servings", "customers"
+  add_foreign_key "servings", "users", column: "operator_id"
   add_foreign_key "sessions", "users"
 end

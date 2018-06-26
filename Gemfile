@@ -18,11 +18,14 @@ gem 'bcrypt'
 gem 'interactor'
 gem 'apitome'
 gem 'carrierwave'
+gem 'responders'
+gem 'rack-cors', require: 'rack/cors'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+  gem 'faker'
 end
 
 group :development do

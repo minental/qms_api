@@ -5,7 +5,7 @@ class Session < ApplicationRecord
 
   validates :access_token, presence: true
 
-  before_create :set_access_token
+  before_validation :set_access_token, on: :create
 
   scope :expired,           -> { where('updated_at < ?', Time.current - TIMEOUT) }
   scope :not_expired,       -> { where('updated_at > ?', Time.current - TIMEOUT) }

@@ -16,5 +16,14 @@ module QmsApi
     # -- all .rb files in that directory are automatically loaded.
 
     config.session_timeout = 1.day
+
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*'
+        resource '*', headers: :any,
+                      methods: [:get, :post, :put, :delete, :options],
+                      expose: ['Access-Token', 'Content-Range']
+      end
+    end
   end
 end
